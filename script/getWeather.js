@@ -1,5 +1,5 @@
 async function getWeatherByCoord(lat, lon) {
-    const  response = await fetch("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=20940a1010f61657e990376f1c7271b4", {
+    const  response = await fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=20940a1010f61657e990376f1c7271b4", {
         "method": "GET",
     })
     try {
@@ -22,7 +22,7 @@ async function getWeatherByCoord(lat, lon) {
 }
 
 async function getWeatherByCityName(name) {
-    const response = await fetch("http://api.openweathermap.org/data/2.5/weather?q=" + name + "&units=metric&appid=20940a1010f61657e990376f1c7271b4", {
+    const response = await fetch("https://api.openweathermap.org/data/2.5/weather?q=" + name + "&units=metric&appid=20940a1010f61657e990376f1c7271b4", {
         "method": "GET",
     })
     try {
