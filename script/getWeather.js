@@ -1,4 +1,4 @@
-async function getWeatherByCoord(lat, lon) {
+const getWeatherByCoord= async (lat, lon)=> {
     const  response = await fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=20940a1010f61657e990376f1c7271b4", {
         "method": "GET",
     })
@@ -20,8 +20,7 @@ async function getWeatherByCoord(lat, lon) {
         console.log(err);
     };
 }
-
-async function getWeatherByCityName(name) {
+const getWeatherByCityName = async (name)=> {
     const response = await fetch("https://api.openweathermap.org/data/2.5/weather?q=" + name + "&units=metric&appid=20940a1010f61657e990376f1c7271b4", {
         "method": "GET",
     })

@@ -1,14 +1,22 @@
-var iconDic={"Clear":`<i class="fas fa-sun"></i>`,"Rain":`<i class="fas fa-cloud-rain"></i>`,"Clouds":`<i class="fas fa-cloud"></i>`,"Snow":`<i class="fas fa-snowflakes"></i>`}
+var iconDic = {
+    "Clear": `<i class="fas fa-sun"></i>`,
+    "Rain": `<i class="fas fa-cloud-rain"></i>`,
+    "Clouds": `<i class="fas fa-cloud"></i>`,
+    "Snow": `<i class="fas fa-snowflakes"></i>`
+}
 var countCities = 0
 var cities = new Array();
-if (localStorage.length == 0) {
-    localStorage.cities = cities;
-}
-cities = localStorage.cities.split(",");
+(() => {
+    //load localStorage
+    if (localStorage.length == 0) {
+        localStorage.cities = cities;
+    }
+    cities = localStorage.cities.split(",");
+})();
 
 var container = document.getElementsByClassName("container")[0];
 
-function deleteBlock(btn) {
+const deleteBlock=(btn)=> {
     var elem = btn.parentNode.parentNode.parentNode;
     var block = btn.parentNode.parentNode;
     var cityName = btn.parentNode.children[0].innerText;
@@ -23,7 +31,7 @@ function deleteBlock(btn) {
     elem.removeChild(block);
 }
 
-function addLoadingBlock(cityName) {
+const addLoadingBlock = (cityName)=> {
     cities.push(cityName)
     localStorage.cities = cities;
     container.innerHTML += ` <div class="section" >
@@ -45,13 +53,13 @@ function addLoadingBlock(cityName) {
         <i class="fas fa-redo-alt"></i>
     </div>
 </div>`
-setCitiesWeather(cityName);
+    setCitiesWeather(cityName);
 
 }
 
 
 //加载存在LocalStrorage里的信息,
-function loadLocalStorageBlock() {
+const loadLocalStorageBlock=()=> {
     for (var i = 0; i < cities.length; i++) {
         if (cities[i] != "") {
             container.innerHTML += ` <div class="section" >
@@ -77,26 +85,11 @@ function loadLocalStorageBlock() {
     }
 }
 
-var deleteBlockBtn = document.getElementsByClassName("deleteBlock");
-
-for (let i = 0; i < deleteBlockBtn.length; i++) {
-    deleteBlockBtn[i].setAttribute("onclick", "deleteBlock(this)");
-}
-
-
-var addBlockBtn = document.getElementsByClassName("fa-plus-circle")[0];
-var addBlockInput = document.getElementById("addBlockInput");
-addBlockBtn.setAttribute("onclick", `addLoadingBlock(document.getElementById("addBlockInput").value)`)
-
-
-
-
-
 const sleep = (timeout = 2000) => new Promise(resolve => {
     setTimeout(resolve, timeout);
 });
 
-function getWeatherIcon(weather) {
+const getWeatherIcon = (weather)=>{
     return iconDic[weather];
 }
 
@@ -181,11 +174,13 @@ const setMainCityWeather = async () => {
     }
 }
 
-async function setCitiesWeather(cityName) {
+const setCitiesWeather = async(cityName)=> {
     var sectionBlocks = document.getElementsByClassName("section");
     for (let i = 0; i < sectionBlocks.length; i++) {
         if (sectionBlocks[i].children[0].children[0].innerText == cityName) {
-            (()=>{var date = new Date();console.log(date.toLocaleTimeString())
+            (() => {
+                var date = new Date();
+                console.log(date.toLocaleTimeString())
             })();
             await sleep(2000);
             var weatherInfo;
@@ -264,31 +259,40 @@ async function setCitiesWeather(cityName) {
     }
 }
 
-const updateCitiesWeather= async () =>{
+const updateCitiesWeather = async () => {
     console.time("get cities weather")
     const promises = cities.map(cityName => setCitiesWeather(cityName));
-    for(const promise of promises){
-         await promise;
+    for (const promise of promises) {
+        await promise;
     }
     console.timeEnd("get cities weather")
 }
 
-
-function updateWeather(){
-    (async () =>{
+const updateWeather =()=> {
+    (async () => {
         await setMainCityWeather();
     })();
     var sections = document.getElementsByClassName("section");
     let t = sections.length;
-    for(let i=0;i<t;i++){
+    for (let i = 0; i < t; i++) {
         sections[0].parentNode.removeChild(sections[0]);
     }
     loadLocalStorageBlock();
     updateCitiesWeather();
 }
+let firstUpperCase = ([first, ...rest]) => first?.toUpperCase() + rest.join('');
+var deleteBlockBtn = document.getElementsByClassName("deleteBlock");
 
+for (let i = 0; i < deleteBlockBtn.length; i++) {
+    deleteBlockBtn[i].setAttribute("onclick", "deleteBlock(this)");
+}
+
+
+var addBlockBtn = document.getElementsByClassName("fa-plus-circle")[0];
+var addBlockInput = document.getElementById("addBlockInput");
+addBlockBtn.setAttribute("onclick", `addLoadingBlock(firstUpperCase(document.getElementById("addBlockInput").value))`)
 
 var updateWeatherBtns = document.getElementsByClassName("updateWeather");
-for(btn of updateWeatherBtns){
-    btn.setAttribute("onclick","updateWeather();")
+for (btn of updateWeatherBtns) {
+    btn.setAttribute("onclick", "updateWeather();")
 }
