@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="./css/myStyle.css" rel="stylesheet">
+    <!-- <link href="css/outlines.css" rel="stylesheet"> -->
+    <script src="https://kit.fontawesome.com/3064a9342a.js" crossorigin="anonymous"></script>
+
+    <meta name="author" content="Цзян Пэйхэ">
+    <meta charset="utf-8">
+    <meta name="keywords" content="HTML, ITMO">
+    <html lang="ru">
+    <title>Цзян Пэйхэ M33091</title>
+</head>
+
+<body>
+    <div class="topBar">
+        <h1>погода здесь</h1>
+        <button class = "updateWeather">обновить геолокацию</button>
+        <i class="fas fa-sync updateWeather"></i>
+    </div>
+    <header class="header">
+        <div class="city mainCity">
+            <div class="cityName">
+                Moscow
+            </div>
+            <div class="icon">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <div class="temp">
+                ??? °C
+            </div>
+        </div>
+
+        <div class="weather">
+            <ul>
+                <li class="wind weatherInfo">
+                    <div class="block-inline weatherInfoName">
+                        <p>Ветер</p>
+                    </div>
+                    <div class="block-inline weatherInfoValue">
+                        <p>UNKNOW</p>
+                    </div>
+                </li>
+                <li class="cloud weatherInfo">
+                    <div class="block-inline weatherInfoName">
+                        <p>облачность</p>
+                    </div>
+                    <div class="block-inline weatherInfoValue">
+                        <p>UNKNOW</p>
+                    </div>
+                </li>
+                <li class="pressure weatherInfo">
+                    <div class="block-inline weatherInfoName">
+                        <p>Давление</p>
+                    </div>
+                    <div class="block-inline weatherInfoValue">
+                        <p>UNKNOW</p>
+                    </div>
+                </li>
+                <li class="humidity weatherInfo">
+                    <div class="block-inline weatherInfoName">
+                        <p>Влажность</p>
+                    </div>
+                    <div class="block-inline weatherInfoValue">
+                        <p>UNKNOW</p>
+                    </div>
+                </li>
+                <li class="coordinates weatherInfo">
+                    <div class="block-inline weatherInfoName">
+                        <p>Координаты</p>
+                    </div>
+                    <div class="block-inline weatherInfoValue">
+                        <p>UNKNOW</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="loadingMainCity">
+        <p id="loadMainCity">LOADING</p><br>
+        <i class="fas fa-redo-alt"></i>
+    </div>
+
+    <div class="container">
+        <div class="bodyBarTitle block-inline">Избранное</div>
+        <div class="addCity">
+            <input class="block-inline" id="addBlockInput" type="text" onFocus="this.value=''" value="input your city">
+            <i class="fas fa-plus-circle"></i>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
+
+<script src="./script/getWeather.js"> </script>
+<script src="./script/lab2.js"> </script>
+<script src="./script/main.js"> </script>
