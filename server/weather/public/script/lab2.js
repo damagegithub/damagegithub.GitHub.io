@@ -17,11 +17,13 @@ const deleteBlock = (btn) => {
     var cityName = btn.parentNode.children[0].innerText;
     (async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8081/favourites/change?city=${cityName}&del=1`, {
-                "method": "GET",
+            const response = await fetch(`http://127.0.0.1:8081/favourites/change`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body:`{"city":"${cityName}","del":1}`
             })
-            console.log("deleting")
-            console.log(response.status)
             const code = await response.json();
             if (code.code==200) {
                 elem.removeChild(block);
@@ -36,11 +38,13 @@ const deleteBlock = (btn) => {
 const addLoadingBlock = (cityName) => {
     (async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8081/favourites/change?city=${cityName}&del=0`, {
-                "method": "GET",
+            const response = await fetch(`http://127.0.0.1:8081/favourites/change`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body:`{"city":"${cityName}","del":0}`
             })
-            console.log("adding city")
-            console.log(response.status)
             const code = await response.json();
             if (code.code==200) {
                 container.innerHTML += ` <div class="section" >
@@ -205,13 +209,33 @@ const setCitiesWeather = async (cityName) => {
     var sectionBlocks = document.getElementsByClassName("section");
     for (let i = 0; i < sectionBlocks.length; i++) {
         if (sectionBlocks[i].children[0].children[0].innerText == cityName) {
-
             var weatherInfo;
             try {
                 weatherInfo = await getWeatherByCityName(cityName);
                 console.log(weatherInfo)
             } catch (error) {
                 console.log(error);
+                var elem = sectionBlocks[i].parentNode;
+                var block = sectionBlocks[i];
+                (async () => {
+                    try {
+                        const response = await fetch(`http://127.0.0.1:8081/favourites/change`, {
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json;charset=utf-8'
+                            },
+                            body:`{"city":"${cityName}","del":1}`
+                        })
+                        const code = await response.json();
+                        if (code.code==200) {
+                            elem.removeChild(block);
+                        }
+                    } catch (error) {
+                        console.log(error);
+                    }
+                })();
+                i--;
+                alert(error);
                 return;
             }
             if (weatherInfo.code == 200) {

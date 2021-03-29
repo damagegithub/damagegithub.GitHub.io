@@ -30,7 +30,6 @@ const getWeatherByCityName = async (name) => {
     })
     const json = await response.json();
     if (json.cod == 200) {
-        console.log(json)
         var weatherInfo = {
             cityName: json.name,
             weather: json.weather[0].main,
@@ -50,7 +49,6 @@ const getWeatherByCityName = async (name) => {
 /* GET home page. */
 router.get('/city', function (req, res) {
     var cityName = req.query.city;
-    console.log(cityName);
     (async () => {
         try{
            res.json(await getWeatherByCityName(cityName)) 
@@ -63,7 +61,6 @@ router.get('/city', function (req, res) {
 router.get('/coordinates', function (req, res) {
     var latitude = req.query.lat;
     var longitude = req.query.long;
-    console.log(latitude, longitude);
     (async () => {
         try{
             res.json(await getWeatherByCoord(latitude, longitude)) 

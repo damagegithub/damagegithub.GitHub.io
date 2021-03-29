@@ -15,6 +15,8 @@ var app = express();
 
 app.use(express.static('public'));
 
+
+
 app.use("/",indexRouter);
 app.use("/weather",weatherRouter);
 app.use("/favourites",databaseRouter);

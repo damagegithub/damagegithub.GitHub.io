@@ -5,18 +5,20 @@ var router = express.Router();
     await sql.connect('mssql://sa:jiangusing0@localhost/weather')
 })();
 
+router.use(express.json()) // for parsing application/json
+router.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
 
 router.get('/', function (req, res) {
     (async () => {
-        const result = await sql.query("select * from cities")
-        console.dir(result.recordset)
+        const result = await sql.query("select DISTINCT * from cities")
         res.send(result.recordset)
     })();
 });
 
-router.get('/change', function (req, res) {
-    var cityName = req.query.city;
-    var deleteFlag = req.query.del;
+router.post('/change', function (req, res) {
+    var cityName = req.body.city;
+    var deleteFlag = req.body.del;
     (async () => {
          
         try {

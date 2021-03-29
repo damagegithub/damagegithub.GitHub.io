@@ -7,13 +7,11 @@ const getWeatherByCoord = async (lat, lon) => {
     if (weatherInfo.code ==200) {
         return weatherInfo;
     } else if (weatherInfo.code == 404) {
-        alert("Coordinates error")
+        throw 404;
     } 
 }
 
 const getWeatherByCityName = async (name) => {
-
-
     const response = await fetch("http://127.0.0.1:8081/weather/city?city=" + name, {
         "method": "GET",
     })
@@ -21,7 +19,7 @@ const getWeatherByCityName = async (name) => {
     if (weatherInfo.code ==200) {
         return weatherInfo;
     } else if (weatherInfo.code == 404) {
-        alert("City name error")
+        throw 404;
     } 
 
 }
