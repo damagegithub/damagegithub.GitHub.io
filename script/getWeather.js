@@ -4,17 +4,20 @@ const getWeatherByCoord= async (lat, lon)=> {
     })
     try {
         const json = await response.json();
-        var weatherInfo = {
-            cityName: json.name,
-            weather: json.weather[0].main,
-            temp: json.main.temp,
-            wind: json.wind.speed + " m/s ," + json.wind.deg + " deg",
-            clouds: json.clouds.all+" %",
-            pressure: json.main.pressure+" 	hPa",
-            humidity: json.main.humidity+" %",
-            coord: "lon:" + json.coord.lon + " ,lat:" + json.coord.lat,
-            code:json.cod
-        };
+        var weatherInfo;
+        if(json.cod ==200 ){
+            weatherInfo = {
+                cityName: json.name,
+                weather: json.weather[0].main,
+                temp: json.main.temp,
+                wind: json.wind.speed + " m/s ," + json.wind.deg + " deg",
+                clouds: json.clouds.all+" %",
+                pressure: json.main.pressure+" 	hPa",
+                humidity: json.main.humidity+" %",
+                coord: "lon:" + json.coord.lon + " ,lat:" + json.coord.lat,
+                code:json.cod
+            };
+        }else{weatherInfo = {code:json.cod};}
         return weatherInfo;
     } catch (err) {
         console.log(err);
@@ -26,17 +29,20 @@ const getWeatherByCityName = async (name)=> {
     })
     try {
         const json = await response.json();
-        var weatherInfo = {
-            cityName: json.name,
-            weather: json.weather[0].main,
-            temp: json.main.temp,
-            wind: json.wind.speed + " m/s ," + json.wind.deg + " deg",
-            clouds: json.clouds.all+" %",
-            pressure: json.main.pressure+" 	hPa",
-            humidity: json.main.humidity+" %",
-            coord: "lon:" + json.coord.lon + " ,lat:" + json.coord.lat,
-            code:json.cod
-        };
+        var weatherInfo;
+        if(json.cod ==200 ){
+            weatherInfo = {
+                cityName: json.name,
+                weather: json.weather[0].main,
+                temp: json.main.temp,
+                wind: json.wind.speed + " m/s ," + json.wind.deg + " deg",
+                clouds: json.clouds.all+" %",
+                pressure: json.main.pressure+" 	hPa",
+                humidity: json.main.humidity+" %",
+                coord: "lon:" + json.coord.lon + " ,lat:" + json.coord.lat,
+                code:json.cod
+            };
+        }else{weatherInfo = {code:json.cod};}
         return weatherInfo;
     } catch (err) {
         console.log(err);

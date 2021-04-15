@@ -78,7 +78,7 @@ const addLoadingBlock = (cityName) => {
 }
 
 
-//加载存在LocalStrorage里的信息,
+//加载存在MSSQL里的信息,
 const loadSavedBlock = async () => {
     var cities = new Array();
         const response = await fetch("http://127.0.0.1:8081/favourites", {
@@ -212,7 +212,6 @@ const setCitiesWeather = async (cityName) => {
             var weatherInfo;
             try {
                 weatherInfo = await getWeatherByCityName(cityName);
-                console.log(weatherInfo)
             } catch (error) {
                 console.log(error);
                 var elem = sectionBlocks[i].parentNode;

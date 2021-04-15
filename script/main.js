@@ -38,7 +38,6 @@ const handleSuccess = data => {
     (async () =>{
         await setMainCityWeather();
     })();
-
 }
 const handleError = error => {
     console.log(error);
@@ -51,7 +50,11 @@ if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(handleSuccess, handleError, options)
 } else {
     alert('Geolocation is not supported in your browser')
+    (async () =>{
+        await setMainCityWeather();
+    })();
 }
+
 //2.加载本地缓存信息
 loadLocalStorageBlock();
 //4.更新选择的城市信息

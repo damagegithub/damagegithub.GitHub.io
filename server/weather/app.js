@@ -15,18 +15,12 @@ var app = express();
 
 app.use(express.static('public'));
 
-
-
-app.use("/",indexRouter);
-app.use("/weather",weatherRouter);
-app.use("/favourites",databaseRouter);
+app.use("/", indexRouter);
+app.use("/weather", weatherRouter);
+app.use("/favourites", databaseRouter);
 
 var server = app.listen(8081, function () {
-
   var host = server.address().address
   var port = server.address().port
-
-  console.log("Example app listening at http://%s:%s", host, port)
-
+  console.log("app listening at http://%s:%s", host, port)
 })
-

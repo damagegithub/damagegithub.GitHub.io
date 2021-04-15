@@ -54,6 +54,7 @@ if (navigator.geolocation) {
 }
 //2.加载本地缓存信息
 loadSavedBlock();
+
 //4.更新选择的城市信息
 updateCitiesWeather();
 

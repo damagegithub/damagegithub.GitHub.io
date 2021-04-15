@@ -4,6 +4,7 @@ var iconDic = {
     "Clouds": `<i class="fas fa-cloud"></i>`,
     "Snow": `<i class="fas fa-snowflakes"></i>`
 }
+
 var countCities = 0
 var cities = new Array();
 (() => {
@@ -170,7 +171,7 @@ const setMainCityWeather = async () => {
         mainCityBlock.replaceWith(header);
         loadingBlock.style.display = "none";
     } else {
-        console.log("weather API error")
+        alert("weather API error or city name wrong")
     }
 }
 
@@ -182,7 +183,7 @@ const setCitiesWeather = async(cityName)=> {
                 var date = new Date();
                 console.log(date.toLocaleTimeString())
             })();
-            await sleep(2000);
+            await sleep(2000);//test async awiat
             var weatherInfo;
             try {
                 weatherInfo = await getWeatherByCityName(cityName);
@@ -253,33 +254,33 @@ const setCitiesWeather = async(cityName)=> {
             </div>`;
                 sectionBlocks[i].replaceWith(section)
             } else {
-                console.log("weather API error")
+                alert("weather API error or city name wrong")
             }
         }
     }
 }
 
 const updateCitiesWeather = async () => {
-    console.time("get cities weather")
     const promises = cities.map(cityName => setCitiesWeather(cityName));
     for (const promise of promises) {
         await promise;
     }
-    console.timeEnd("get cities weather")
 }
 
 const updateWeather =()=> {
-    (async () => {
-        await setMainCityWeather();
-    })();
+    //delete all blocks
     var sections = document.getElementsByClassName("section");
     let t = sections.length;
     for (let i = 0; i < t; i++) {
         sections[0].parentNode.removeChild(sections[0]);
     }
-    loadLocalStorageBlock();
-    updateCitiesWeather();
+    (async () => {
+        await setMainCityWeather();
+    })();
+    loadLocalStorageBlock();//add loading blocks
+    updateCitiesWeather();//get weather info and add to page
 }
+
 let firstUpperCase = ([first, ...rest]) => first?.toUpperCase() + rest.join('');
 var deleteBlockBtn = document.getElementsByClassName("deleteBlock");
 

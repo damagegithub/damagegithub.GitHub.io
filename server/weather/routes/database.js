@@ -20,27 +20,18 @@ router.post('/change', function (req, res) {
     var cityName = req.body.city;
     var deleteFlag = req.body.del;
     (async () => {
-         
         try {
             if (deleteFlag == 0) {
                 await sql.query(`insert into  cities (cityName) values ('${cityName}')`)
-                res.send({
-                    code: 200
-                });
+                res.send({code: 200});
             } else {
                 await sql.query(`delete from cities where cityName='${cityName}'`)
-                res.send({
-                    code: 200
-                });
+                res.send({code: 200});
             }
-           
         } catch (error) {
-            res.send({
-                code: 404
-            });
-            console.log(error)
+            res.status(404);
+            res.send({code: 404});
         }
-
     })();
 })
 

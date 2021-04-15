@@ -21,6 +21,7 @@ const getWeatherByCoord = async (lat, lon) => {
         };
         return weatherInfo;
     } else {
+
         throw 404;
     }
 }
@@ -50,23 +51,26 @@ const getWeatherByCityName = async (name) => {
 router.get('/city', function (req, res) {
     var cityName = req.query.city;
     (async () => {
-        try{
-           res.json(await getWeatherByCityName(cityName)) 
-        }catch(err){
-            res.send({code:404});
+        try {
+            res.json(await getWeatherByCityName(cityName))
+        } catch (err) {
+            res.status(404);
+            res.send({code: 404});
         }
     })();
-
 });
 router.get('/coordinates', function (req, res) {
     var latitude = req.query.lat;
     var longitude = req.query.long;
     (async () => {
-        try{
-            res.json(await getWeatherByCoord(latitude, longitude)) 
-         }catch(err){
-             res.send({code:404});
-         }
+        try {
+            res.json(await getWeatherByCoord(latitude, longitude))
+        } catch (err) {
+            res.status(404);
+            res.send({
+                code: 404
+            });
+        }
     })();
 });
 module.exports = router;
